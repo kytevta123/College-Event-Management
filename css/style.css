@@ -1,0 +1,208 @@
+:root {
+  --bg-color: #f4f6f9;
+  --text-color: #333;
+  --card-bg: #ffffff;
+  --primary: #2563eb;
+}
+
+[data-theme="dark"] {
+  --bg-color: #0f172a;
+  --text-color: #f8fafc;
+  --card-bg: #1e293b;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  background-color: var(--card-bg);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.hero {
+  text-align: center;
+  padding: 4rem 1rem;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: white;
+}
+
+.countdown-box {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.countdown-box div {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px 15px;
+  border-radius: 8px;
+}
+
+.container {
+  padding: 3rem 5%;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.badge {
+  background: var(--primary);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+}
+
+.btn {
+  background: var(--primary);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.register-section form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  gap: 15px;
+}
+
+.register-section input, .register-section select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.success-msg {
+  margin-top: 15px;
+  color: #10b981;
+  font-weight: bold;// 1. Page Load hone par pehle se save shuda data dikhayein
+document.addEventListener("DOMContentLoaded", displayRegistrations);
+
+// 2. Data Save Karne Ka Function
+function handleRegistration(event) {
+  event.preventDefault();
+
+  // Form se inputs ki values lena
+  const name = document.getElementById("studentName").value;
+  const rollNo = document.getElementById("rollNo").value;
+  const eventName = document.getElementById("eventSelect").value;
+
+  // Single Registration Object
+  const newRegistration = {
+    id: Date.now(), // Unique ID
+    name: name,
+    rollNo: rollNo,
+    eventName: eventName,
+    date: new Date().toLocaleDateString()
+  };
+
+  // LocalStorage se purana data nikalna (agar na ho toh khali array [])
+  let registrations = JSON.parse(localStorage.getItem("edu_registrations")) || [];
+
+  // Naya data array mein add karna
+  registrations.push(newRegistration);
+
+  // Array ko wapas JSON string bana kar LocalStorage mein save karna
+  localStorage.setItem("edu_registrations", JSON.stringify(registrations));
+
+  // Success message dikhana aur list update karna
+  const successDiv = document.getElementById("formSuccess");
+  successDiv.innerText = "🎉 Success! Registration completed and saved locally.";
+  
+  document.getElementById("eventForm").reset();
+  displayRegistrations(); // List ko refresh karna
+}
+
+// 3. Data Retrieve (Wapas Nikalne) Aur Screen Par Dikhane Ka Function
+function displayRegistrations() {
+  const listContainer = document.getElementById("registeredStudentsList");
+  const countSpan = document.getElementById("totalCount");
+  
+  // LocalStorage se data get karna
+  const registrations = JSON.parse(localStorage.getItem("edu_registrations")) || [];
+
+  countSpan.innerText = registrations.length;
+  listContainer.innerHTML = "";
+
+  if (registrations.length === 0) {
+    listContainer.innerHTML = "<li>No registrations found.</li>";
+    return;
+  }
+
+  // Har student ka card/list item screen par render karna
+  registrations.forEach((reg) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <strong>${reg.name}</strong> (${reg.rollNo}) - 
+      <span class="badge">${reg.eventName}</span> 
+      <small style="color: gray;">[${reg.date}]</small>
+    `;
+    listContainer.appendChild(li);
+  });
+}
+
+// 4. Data Clear / Delete Karne Ka Function
+function clearRegistrations() {
+  if (confirm("Kya aap tamam registrations delete karna chahte hain?")) {
+    localStorage.removeItem("edu_registrations");
+    displayRegistrations();
+    document.getElementById("formSuccess").innerText = "All registrations cleared.";
+  }
+}.registered-list-box {
+  margin-top: 30px;
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.registered-list-box ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.registered-list-box li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+}

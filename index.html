@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduEvents - School Event Portal</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Header / Navigation -->
+  <header>
+    <div class="logo">🎓 EduEvents</div>
+    <nav>
+      <a href="#hero">Home</a>
+      <a href="#events">Upcoming Events</a>
+      <a href="#register">Register</a>
+    </nav>
+    <button id="themeToggle">🌙 Dark Mode</button>
+  </header>
+
+  <!-- Hero Section with Countdown -->
+  <section id="hero" class="hero">
+    <h1>Annual Science & Tech Gala 2026</h1>
+    <p>Get ready to showcase your innovations! Event starts in:</p>
+    <div id="countdown" class="countdown-box">
+      <div><span id="days">00</span> Days</div>
+      <div><span id="hours">00</span> Hours</div>
+      <div><span id="minutes">00</span> Mins</div>
+      <div><span id="seconds">00</span> Secs</div>
+    </div>
+    <a href="#register" class="btn">Register Now</a>
+  </section>
+
+  <!-- Events Section -->
+  <section id="events" class="container">
+    <h2>Upcoming Events</h2>
+    
+    <!-- Event Filter Buttons -->
+    <div class="filter-btns">
+      <button onclick="filterEvents('all')">All</button>
+      <button onclick="filterEvents('sports')">Sports</button>
+      <button onclick="filterEvents('academic')">Academic</button>
+    </div>
+
+    <!-- Event Cards Grid -->
+    <div class="events-grid">
+      <div class="card academic">
+        <span class="badge">Academic</span>
+        <h3>Science Exhibition</h3>
+        <p>📅 Date: 15 Oct 2026 | 📍 Location: Main Hall</p>
+        <p>Showcase your physics and computer projects.</p>
+      </div>
+
+      <div class="card sports">
+        <span class="badge">Sports</span>
+        <h3>Cricket Tournament</h3>
+        <p>📅 Date: 20 Oct 2026 | 📍 Location: School Ground</p>
+        <p>Inter-class cricket championship for Boys.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Registration Form -->
+  <section id="register" class="container register-section">
+    <h2>Student Event Registration</h2>
+    <form id="eventForm" onsubmit="handleRegistration(event)">
+      <input type="text" placeholder="Full Name" required>
+      <input type="text" placeholder="Roll Number / Class (e.g. 9th-A)" required>
+      <select required>
+        <option value="">Select Event</option>
+        <option value="science">Science Exhibition</option>
+        <option value="cricket">Cricket Tournament</option>
+      </select>
+      <button type="submit" class="btn">Submit Registration</button>
+    </form>
+    <div id="formSuccess" class="success-msg"></div>
+  </section><!-- Registration Section -->
+<section id="register" class="container register-section">
+  <h2>Student Event Registration</h2>
+  <form id="eventForm" onsubmit="handleRegistration(event)">
+    <input type="text" id="studentName" placeholder="Full Name" required>
+    <input type="text" id="rollNo" placeholder="Roll Number / Class (e.g. 9th-A)" required>
+    <select id="eventSelect" required>
+      <option value="">Select Event</option>
+      <option value="Science Exhibition">Science Exhibition</option>
+      <option value="Cricket Tournament">Cricket Tournament</option>
+      <option value="Coding Competition">Coding Competition</option>
+    </select>
+    <button type="submit" class="btn">Submit Registration</button>
+  </form>
+  <div id="formSuccess" class="success-msg"></div>
+
+  <!-- Registered Students List (Retrieve Section) -->
+  <div class="registered-list-box">
+    <h3>Registered Students (<span id="totalCount">0</span>)</h3>
+    <ul id="registeredStudentsList"></ul>
+    <button onclick="clearRegistrations()" class="btn-danger">Clear All Registrations</button>
+  </div>
+</section>
+
+  <script src="js/main.js"></script>
+  <script src="js/timer.js"></script>
+</body>
+</html>
